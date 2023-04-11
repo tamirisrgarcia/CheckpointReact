@@ -1,25 +1,21 @@
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Footer       from "./components/footer";
-import Navbar       from "./components/navbar";
-import AuthProvider from "./contexts/authContext";
-import Home         from "./Routes/Home";
-import Login        from "./Routes/Login"
-import Detail       from "./Routes/Detail"
+import { Outlet } from "react-router-dom";
+import Footer from "./Components/Footer";
+import Navbar from "./Components/Navbar";
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <>
+      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
+        // está em dark mode e deverá utilizar a classe dark ou light */}
+      <div className={`app light}`}>
         <Navbar />
-        <Routes>
-          <Route path = "/"             element = {<Home />}    />
-          <Route path = "/auth"         element = {<Login />}   />
-          <Route path = "/dentista/:id" element = {<Detail />}  />
-        </Routes>
+        <main>
+          <Outlet />
+        </main>
         <Footer />
-      </BrowserRouter>
-    </AuthProvider>
+      </div>
+    </>
   );
 }
 

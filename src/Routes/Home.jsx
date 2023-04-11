@@ -1,24 +1,12 @@
 import { useEffect } from "react";
-import Card from "../components/card";
-//import api  from "../services/api";
+import Card from "../Components/Card";
 
-function Home() {
-
-  //const [dentista, setDentista] = useState([]);
-
-  async function getDentistas() {
-    try {
-      //const response = await api.get("/dentista", 
-      //{headers: {
-        //Authorization: localStorage.getItem("")
-  
-    } catch (error) {
-      alert("erro");
-    }
-  }
+const Home = () => {
 
   useEffect(() => {
-    getDentistas();    
+    //Nesse useEffect, deverá ser obtido todos os dentistas da API
+    //Armazena-los em um estado para posteriormente fazer um map
+    //Usando o componente <Card />
   }, []);
 
   return (

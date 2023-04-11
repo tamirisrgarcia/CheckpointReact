@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./ScheduleForm.module.css";
 
-function ScheduleForm() {
+const ScheduleForm = () => {
   useEffect(() => {
     //Nesse useEffect, você vai fazer um fetch na api buscando TODOS os dentistas
     //e pacientes e carregar os dados em 2 estados diferentes
   }, []);
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     //Nesse handlesubmit você deverá usar o preventDefault,
     //obter os dados do formulário e enviá-los no corpo da requisição 
     //para a rota da api que marca a consulta

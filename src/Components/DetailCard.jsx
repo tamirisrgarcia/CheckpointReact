@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import ScheduleFormModal from "../scheduleFormModal/ScheduleFormModal";
-import styles from "./styles.module.css";
+import ScheduleFormModal from "./ScheduleFormModal";
+import styles from "./DetailCard.module.css";
 
-function DetailCard() {
+const DetailCard = () => {
 
   useEffect(() => {
     //Nesse useEffect, você vai fazer um fetch na api passando o 

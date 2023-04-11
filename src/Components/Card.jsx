@@ -1,11 +1,17 @@
-import styles from "./styles.module.css";
+import styles from "./Card.module.css";
 
-function Card(dentista) {
+const Card = () => {
 
   return (
     <>
+      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
+        // está em dark mode e deverá utilizar o css correto */}
       <div className={`card`}>
-        <img src = "/images/doctor.jpg" alt = "doctor placeholder" className="card-img-top"/>
+        <img
+          className="card-img-top"
+          src="/images/doctor.jpg"
+          alt="doctor placeholder"
+        />
         <div className={`card-body ${styles.CardBody}`}>
           {/* Na linha seguinte o link deverá utilizar a matricula, nome e sobrenome do dentista
           que vem da API */}
