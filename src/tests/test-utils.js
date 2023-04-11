@@ -1,10 +1,6 @@
 import { render } from "@testing-library/react"
 import { BrowserRouter, MemoryRouter, Routes, Route } from "react-router-dom"
 import { ContextProvider } from "../Components/utils/global.context"
-import Home from "../Routes/Home"
-import Detail from "../Routes/Detail"
-import Login from "../Routes/Login"
-import App from "../App"
 
 
 const renderWithContext = (ui, providerValue)=>{
@@ -17,7 +13,7 @@ const renderWithContext = (ui, providerValue)=>{
     )
 }
 
-//Only for testing individual routes as /dentist/:id
+//TODO TESTING: Only for testing individual routes as /dentist/:id
 export const renderWithRouter = (ui, {route = '/', path='/'}) => {
     window.history.pushState({}, 'Test page', route)
 

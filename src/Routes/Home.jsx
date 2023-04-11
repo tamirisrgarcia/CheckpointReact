@@ -1,13 +1,16 @@
 import { useEffect } from "react";
 import Card from "../Components/Card";
 
-const Home = () => {
+function Home() {
 
   useEffect(() => {
-    //Nesse useEffect, deverá ser obtido todos os dentistas da API
+  
+   
+  }, []);
+
+   //TODO API: Nesse useEffect, deverá ser obtido todos os dentistas da API
     //Armazena-los em um estado para posteriormente fazer um map
     //Usando o componente <Card />
-  }, []);
 
   return (
     <>
@@ -17,6 +20,6 @@ const Home = () => {
       </div>
     </>
   );
-};
+}
 
 export default Home;

@@ -1,11 +1,11 @@
 import DetailCard from "../Components/DetailCard";
 
-const Detail = () => {
+function Detail() {
   return (
     <>
       <DetailCard />
     </>
-  )
+  );
 }
 
-export default Detail
+export default Detail;
