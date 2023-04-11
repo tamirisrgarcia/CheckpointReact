@@ -1,6 +1,6 @@
-import ScheduleForm from './ScheduleForm';
+import ScheduleForm from '../scheduleForm/ScheduleForm';
 
-const ScheduleFormModal = () => {
+function ScheduleFormModal() {
   return (
     <div className={`modal fade`} id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div className="modal-dialog">

@@ -1,10 +1,6 @@
 import { render } from "@testing-library/react"
 import { BrowserRouter, MemoryRouter, Routes, Route } from "react-router-dom"
-import { ContextProvider } from "../Components/utils/global.context"
-import Home from "../Routes/Home"
-import Detail from "../Routes/Detail"
-import Login from "../Routes/Login"
-import App from "../App"
+import { ContextProvider } from "../components/utils/global.context"
 
 
 const renderWithContext = (ui, providerValue)=>{
