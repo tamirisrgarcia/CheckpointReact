@@ -1,49 +1,62 @@
-import { useEffect } from "react";
 import ScheduleFormModal from "./ScheduleFormModal";
 import styles from "./DetailCard.module.css";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import api from "../services/api";
 
-const DetailCard = () => {
+function DetailCard() {
 
+  const { matricula } = useParams();
+  const [dentista,  setDentista]  = useState([]);
+
+  async function getDentista() {
+    try {
+      const { data } = await api.get(`/dentista?matricula=${matricula}`);
+      setDentista(data);
+
+    } catch (error) {
+      alert("Erro ao retornar dados");
+    }
+  }
   useEffect(() => {
-    //Nesse useEffect, você vai fazer um fetch na api passando o 
-    //id do dentista que está vindo do react-router e carregar os dados em algum estado
+    getDentista();
   }, []);
+
   return (
-    //As instruções que estão com {''} precisam ser 
-    //substituídas com as informações que vem da api
     <>
-      <h1>Detail about Dentist {'Nome do Dentista'} </h1>
-      <section className="card col-sm-12 col-lg-6 container">
-        {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
-        <div
-          className={`card-body row`}
-        >
-          <div className="col-sm-12 col-lg-6">
+      <h1>Detalhes sobre {dentista.nome} </h1>
+          
+      <section className = "card col-sm-12 col-lg-6 container">
+         {/* //TODO DARK MODE Na linha seguinte deverá ser feito um teste se a aplicação
+          // está em dark mode e deverá utilizar o css correto */}
+        <div className  = {`card-body row`}>
+
+          <div className  = "col-sm-12 col-lg-6">
             <img
-              className="card-img-top"
-              src="/images/doctor.jpg"
-              alt="doctor placeholder"
+              className = "card-img-top"
+              src       = "/images/doctor.jpg"
+              alt       = "doctor placeholder"
             />
           </div>
-          <div className="col-sm-12 col-lg-6">
-            <ul className="list-group">
-              <li className="list-group-item">Nome: {'Nome do Dentista'}</li>
-              <li className="list-group-item">
-                Sobrenome: {'Sobrenome do Dentista'}
-              </li>
-              <li className="list-group-item">
-                Usuário: {'Nome de usuário do Dentista'}
-              </li>
+
+          <div className  = "col-sm-12 col-lg-6">
+
+            <ul className = "list-group">
+              <li className = "list-group-item">Nome: {dentista.nome}</li>
+              <li className = "list-group-item">Sobrenome: {dentista.sobrenome}</li>
+              <li className = "list-group-item">Usuário: {}</li>
             </ul>
-            <div className="text-center">
-              {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-              // está em dark mode e deverá utilizado o css correto */}
+
+            <div className = "text-center">
+                  
+                  
+                  {/* //TODO DARK MODE: Na linha seguinte deverá ser feito um teste se a aplicação
+                    // está em dark mode e deverá utilizado o css correto */}
+
               <button
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                className={`btn btn-light ${styles.button
-                  }`}
+                data-bs-toggle  = "modal"
+                data-bs-target  = "#exampleModal"
+                className       = {`btn btn-light ${styles.button}`}
               >
                 Marcar consulta
               </button>
@@ -51,7 +64,7 @@ const DetailCard = () => {
           </div>
         </div>
       </section>
-      <ScheduleFormModal />
+      <ScheduleFormModal />  
     </>
   );
 };
