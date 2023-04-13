@@ -16,3 +16,6 @@
 .title{
   height:           2rem;
 }
+li{
+  list-style:       none;
+}

@@ -30,7 +30,7 @@ a{
 }
 a:hover{
   color:                  rgb(136, 136, 136);
-} 
+}
 form{
   display:                flex;
   flex-direction:         column;
