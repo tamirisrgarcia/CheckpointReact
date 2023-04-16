@@ -2,32 +2,33 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../contexts/authContext";
+import { ThemeContext } from "../contexts/themeContext";
 
 function Navbar() {
 
-  const authContext = useContext(AuthContext);
-  const navigate    = useNavigate();
-  const token       = localStorage.getItem("@dhOdonto_token")
+  const navigate = useNavigate();
+  const { theme, handleTheme } = useContext(ThemeContext)
+  const { token, removeUserData } = useContext(AuthContext);
+  
 
   function logout() {
-    authContext.removeData();
+    removeUserData();
     navigate("/login");
   }
 
   useEffect(() => {
-    if (!token) {
-      navigate("/login")
-    }
-  },[]);
+    if (!token) navigate("/login");
+  }, [token, navigate]);
 
   return (
     <header className = "sticky-top">
-      {/* TODO DARK MODE:
-          * Na linha seguinte deverá ser feito um teste se a aplicação
-            está em dark mode e deverá utilizar navbar-dark bg-dark ou navbar-light bg-light*/}
       <nav
-        className   = {`navbar navbar-expand-sm navbar-light bg-light`}
-        aria-label  = "Third navbar example"
+        className     = {
+          theme === "light"
+          ? `navbar navbar-expand-sm navbar-light bg-light`
+          : `navbar navbar-expand-sm navbar-dark bg-dark`}
+        aria-label    = "Third navbar example"
+        data-testeid  = "nav"
       >
         <div className = "container">
           <Link to = "/home">
@@ -59,37 +60,37 @@ function Navbar() {
               </li>
 
               <li className = {`nav-item ${styles.navBarLink}`}>
-                {token ? 
-                  <button
-                    className = {`btn btn-light ${styles.button}`}
-                    onClick   = {logout}>
-                    Logout
-                  </button> :
-                  <Link to = "/login">
-                    <div className = "nav-link">Login</div>
-                  </Link>
-                }
-                {/* TODO LOGIN LOGOUT:
-                  * Se o usuário estiver logado, deverá aparecer um botão de logout
-                    que vai apagar o token do localstorage.
-                  * Se o usuário estiver deslogado, um link fará um redirecionamento, com react-router,
-                    ao formulário de login
-
-                TODO DARK MODE:
-                  * O botão de logout deverá ser testado darkmode
-                    se sim, btn-dark, se não, btn-light */}
-               
+                {token
+                  ? (<button
+                      className = {
+                        theme === "light"
+                        ? `btn btn-light  ${styles.button}`
+                        : `btn btn-dark   ${styles.button}`}
+                      onClick   = {() => logout()}>
+                        Logout
+                    </button>)
+                  : <Link to = "/login">
+                      <div 
+                        className = "nav-link">
+                          Login
+                      </div>
+                    </Link>
+                } 
               </li>
 
               <li className = {`nav-item`}>
-                {/* TODO DARK MODE: Ao ser clicado, esse botão mudará a aplicação para dark mode ou light mode.
-                 Lembre-se de usar um estado no contexto para fazer essa alteração.
-                 Na linha seguinte deverá ser feito um teste se a aplicação
-                 está em dark mode e deverá utilizar o icone ☀ ou 🌙 e btn-dark ou btn-light*/}
                 <button
-                  className={`btn btn-light${styles.btnStyle}`}
+                  className = {
+                    theme === "light"
+                    ? `btn btn-light  ${styles.btnStyle}`
+                    : `btn btn-dark   ${styles.btnStyle}`
+                  }
+                  onClick     = {handleTheme}
+                  data-testid = "btn-theme"
                 >
-                  ☀ 🌙{" "}
+                  {theme === "light"
+                  ? "🌙"
+                  : "☀" }{" "}
                 </button>
               </li>
 

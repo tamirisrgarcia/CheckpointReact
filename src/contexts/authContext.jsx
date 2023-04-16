@@ -1,21 +1,28 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
 
-  function saveUserData(user_name, token) {
-    localStorage.setItem("@dhOdonto_user_name", user_name);
-    localStorage.setItem("@dhOdonto_token",     token);
+  const [token, setToken] = useState("") ;
+
+  function saveUserData(token) {
+    localStorage.setItem("@dh_token", token);
+    setToken(token);
   }
 
   function removeUserData() {
-    localStorage.removeItem("@dhOdonto_user_name");
-    localStorage.removeItem("@dhOdonto_token");
+    localStorage.removeItem("@dh_token");
+    setToken("");
   }
 
+  useEffect(() => {
+    const response = localStorage.getItem("@dh_token");
+    setToken(response);
+  }, []);
+
   return (
-    <AuthContext.Provider value = {{ saveUserData, removeUserData }}>
+    <AuthContext.Provider value = {{ token, saveUserData, removeUserData }}>
       {children}
     </AuthContext.Provider>
   );

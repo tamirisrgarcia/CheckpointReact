@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import styles from "./Footer.module.css";
+import { ThemeContext } from "../contexts/themeContext";
 
 function Footer() {
+
+  const { theme } = useContext(ThemeContext);
 
   function scrollToTop() {
     window.scrollTo(0, 0)
@@ -17,14 +21,14 @@ function Footer() {
           Voltar para o topo
         </button>
 
-        {/* TODO DARK MODE: Na linha seguinte deverá ser feito um teste se a aplicação
-         está em dark mode e deverá utilizar a class navbar-dark bg-dark ou navbar-light bg-light  */}
-        <div className = {`navbar-light bg-light} ${styles.footer}`}>
+        <div className = {
+          theme === "light"
+          ? `navbar-light bg-light  ${styles.footer}`
+          : `navbar-dark  bg-dark   ${styles.footer}`
+          }>
           <div className = "container">
             <div className = {`row`}>
-              <div className = "col-sm-12 col-lg-6">
-                {/* TODO DARK MODE: Na linha seguinte deverá ser feito um teste se a aplicação
-                 está em dark mode e deverá utilizar o css correto */}
+              <div className = {`col-sm-12 col-lg-6`}>
                 <img
                   src       = "/images/DH.png" 
                   alt       = 'DH-logo'
@@ -32,26 +36,26 @@ function Footer() {
                 />
               </div>
               <div className = {`col-sm-12 col-lg-6 ${styles.icons}`}>
-                <img
-                  src       = "/images/ico-facebook.png"
-                  alt       = "ícone do facebook"
-                  className = {styles.icon}
-                />
-                <img
-                  src       = "/images/ico-instagram.png"
-                  alt       = "ícone do instagram"
-                  className = {styles.icon}
-                />
-                <img
-                  src       = "/images/ico-whatsapp.png"
-                  alt       = "ícone do whatsapp"
-                  className = {styles.icon}
-                />
-                <img
-                  src       = "/images/ico-tiktok.png"
-                  alt       = "ícone do tiktok"
-                  className = {styles.icon}
-                />
+                  <img
+                    src       = "/images/ico-facebook.png"
+                    alt       = "ícone do facebook"
+                    className = {styles.icon}
+                  />
+                  <img
+                    src       = "/images/ico-instagram.png"
+                    alt       = "ícone do instagram"
+                    className = {styles.icon}
+                  />
+                  <img
+                    src       = "/images/ico-whatsapp.png"
+                    alt       = "ícone do whatsapp"
+                    className = {styles.icon}
+                  />
+                  <img
+                    src       = "/images/ico-tiktok.png"
+                    alt       = "ícone do tiktok"
+                    className = {styles.icon}
+                  />
               </div>
             </div>
           </div>
