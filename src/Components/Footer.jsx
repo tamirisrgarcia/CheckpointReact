@@ -32,10 +32,18 @@ function Footer() {
                 <img
                   src       = "/images/DH.png" 
                   alt       = 'DH-logo'
-                  className = {`${styles.dhLogo}`}
-                />
+                  className = {
+                    theme === "light"
+                ? `${styles.dhLogo}`
+                : `col-sm-12 col-lg-6 ${styles.iconsDark}`
+                }></img>
+  
               </div>
-              <div className = {`col-sm-12 col-lg-6 ${styles.icons}`}>
+              <div className = {
+                theme === "light"
+                ? `col-sm-12 col-lg-6 ${styles.icons}`
+                : `col-sm-12 col-lg-6 ${styles.iconsDark}`
+                }>
                   <img
                     src       = "/images/ico-facebook.png"
                     alt       = "ícone do facebook"
