@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./ScheduleForm.module.css";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/authContext";
+import { ThemeContext } from "../contexts/themeContext";
 
 function ScheduleForm() {
 
-  const navigate = useNavigate();
-
+  const navigate  = useNavigate();
+  const { token } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
   const [dentistas,         setDentistas]         = useState([]);
   const [pacientes,         setPacientes]         = useState([]);
   const [matriculaDentista, setMatriculaDentista] = useState('');
@@ -16,7 +19,10 @@ function ScheduleForm() {
 
   async function getDentistas(){
     try {
-      const { data } = await api.get("/dentista");
+      const { data } = await api.get("/dentista", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+      }});
       setDentistas(data);
 
     } catch (error) {
@@ -26,7 +32,10 @@ function ScheduleForm() {
 
   async function getPacientes(){
     try {
-      const { data } = await api.get("/paciente");
+      const { data } = await api.get("/paciente", {
+        headers: {
+            Authorization: `Bearer ${token}`
+          }});
       setPacientes(data.body);
 
     } catch (error) {
@@ -39,43 +48,43 @@ function ScheduleForm() {
     getPacientes();
   }, []);
   
-  
+
   async function handleSubmit(e) {
 
     e.preventDefault();
 
+    const data = {
+      paciente: {
+        matricula: matriculaPaciente,
+      },
+      dentista: {
+        matricula: matriculaDentista,
+      },
+      dataHoraAgendamento:  horario,
+    };
+
     try {
-      await
-        api.post("/consulta",
-        {
-          dentista:     { matricula: matriculaDentista},
-          paciente:     { matricula: matriculaPaciente},
-          agendamento:  horario
-        },
-        {
-          headers:      {Authorization: `Bearer ${localStorage.getItem('@dhOdonto_token')}`},
-        });
+      await api.post("/consulta", data,
+      {headers: {
+          Authorization: `Bearer ${token}`
+      }});
 
       alert("Consulta agendada.");
       
       navigate("/home");
       
     } catch (error) {
-      alert("Ocorreu um erro");
+      alert("Ocorreu um erro, tente novamente.");
     }
-
-    //TODO API: Nesse handlesubmit você deverá usar o preventDefault,
-    //obter os dados do formulário e enviá-los no corpo da requisição 
-    //para a rota da api que marca a consulta
-    //lembre-se que essa rota precisa de um Bearer Token para funcionar.
-    //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
   };
 
   return (
     <>
-      {/* TODO DARK MODE: Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
-      <div className  = {`text-center container`}>
+      <div className  = {
+        theme === "light"
+        ? `text-center container`
+        : `text-center container dark`
+      }>
         <form onSubmit  = {handleSubmit}>
           <div className  = {`row ${styles.rowSpacing}`}>
             <div className  = "col-sm-12 col-lg-6">
@@ -90,7 +99,7 @@ function ScheduleForm() {
                 name      = "dentist"
                 id        = "dentist"
                 value     = {matriculaDentista}
-                onChange  = {(e) => setMatriculaPaciente(e.target.value)}
+                onChange  = {(e) => setMatriculaDentista(e.target.value)}
               >
                 {dentistas.map((dentista) => (
                   <option
@@ -139,14 +148,17 @@ function ScheduleForm() {
                 type      = "datetime-local"
                 value     = {horario}
                 onChange  = {(e) => setHorario(e.target.value)}
+                required
               />
             </div>
           </div>
           <div className = {`row ${styles.rowSpacing}`}>
-            {/* TODO DARK MODE: Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
             <button
-              className = {`btn btn-light ${styles.button}`}
+              className = {
+                theme === "light"
+                ? `btn btn-light  ${styles.button}`
+                : `btn btn-dark   ${styles.button}`
+              }
               type      = "submit"
             >
               Agendar
