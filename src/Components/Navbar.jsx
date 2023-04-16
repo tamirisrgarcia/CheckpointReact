@@ -28,7 +28,6 @@ function Navbar() {
           ? `navbar navbar-expand-sm navbar-light bg-light`
           : `navbar navbar-expand-sm navbar-dark bg-dark`}
         aria-label    = "Third navbar example"
-        data-testeid  = "nav"
       >
         <div className = "container">
           <Link to = "/home">
@@ -89,8 +88,8 @@ function Navbar() {
                   data-testid = "btn-theme"
                 >
                   {theme === "light"
-                  ? "🌙"
-                  : "☀" }{" "}
+                  ? "☾"
+                  : "☀︎" }{" "}
                 </button>
               </li>
 

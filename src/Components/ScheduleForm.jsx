@@ -100,12 +100,18 @@ function ScheduleForm() {
                 id        = "dentist"
                 value     = {matriculaDentista}
                 onChange  = {(e) => setMatriculaDentista(e.target.value)}
+                required
               >
+
+                <option value = "" selected disabled hidden>
+                  Selecione
+                </option>
+
                 {dentistas.map((dentista) => (
                   <option
                     key     = {dentista.matricula}
                     value   = {dentista.matricula}>
-                    {dentista.nome} {dentista.sobrenome}
+                    {`${dentista.nome} ${dentista.sobrenome}`}
                   </option>
                 ))}
               </select>
@@ -114,7 +120,8 @@ function ScheduleForm() {
             <div className  = "col-sm-12 col-lg-6">
               <label
                 htmlFor   = "patient"
-                className = "form-label">
+                className = "form-label"
+              >
                 Paciente
               </label>
               <select
@@ -123,12 +130,17 @@ function ScheduleForm() {
                 id        = "patient"
                 value     = {matriculaPaciente}
                 onChange  = {(e) => setMatriculaPaciente(e.target.value)}
+                required
               >
+                <option value="" selected disabled hidden>
+                  Selecione
+                </option>
+
                 {pacientes.map((paciente) => (
                   <option
                     key     = {paciente.matricula}
                     value   = {paciente.matricula}>
-                    {paciente.nome} {paciente.sobrenome}
+                    {`${paciente.nome} ${paciente.sobrenome}`}
                   </option>
                 ))}
               </select>
