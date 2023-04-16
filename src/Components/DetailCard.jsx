@@ -8,22 +8,18 @@ import { ThemeContext } from "../contexts/themeContext";
 function DetailCard() {
   const { theme }     = useContext(ThemeContext);
   const { matricula } = useParams();
-  const [dentista,  setDentista]  = useState([]);
-  const [username,  setUsername] = useState("");
-
-  setTimeout(() => {
-    setUsername(dentista.usuario.username);
-  }, 5);
-
+  const [dentista, setDentista] = useState({});
+  
   async function getDentista() {
     try {
       const { data } = await api.get(`/dentista?matricula=${matricula}`);
       setDentista(data);
-
     } catch (error) {
       alert("Erro ao retornar dados");
     }
   }
+  
+  
   useEffect(() => {
     getDentista();
   }, []);
@@ -45,13 +41,16 @@ function DetailCard() {
           </div>
 
           <div className  = "col-sm-12 col-lg-6">
-
-            <ul className = "list-group">
-              <li className = "list-group-item">Nome: {dentista.nome}</li>
-              <li className = "list-group-item">Sobrenome: {dentista.sobrenome}</li>
-              <li className = "list-group-item">Usuário: {username}</li>
+  
+            <ul className="list-group">
+              <li className="list-group-item">Nome: {dentista.nome}</li>
+              <li className="list-group-item">Sobrenome: {dentista.sobrenome}</li>
+              <li className="list-group-item">
+                Usuário: {dentista.usuario && dentista.usuario.username}
+              </li>
             </ul>
-
+  
+  
             <div className = "text-center">
               <button
                 data-bs-toggle  = "modal"

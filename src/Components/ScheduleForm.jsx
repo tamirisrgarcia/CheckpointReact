@@ -48,10 +48,34 @@ function ScheduleForm() {
     getPacientes();
   }, []);
   
-
+  function isDateValid(date) {
+    // Crie um objeto Date com a data atual
+    const currentDate = new Date();
+    // Remova as informações de horário do objeto Date atual
+    currentDate.setHours(0, 0, 0, 0);
+    
+    // Calcule a diferença entre as datas em milissegundos
+    const differenceInMs = date - currentDate;
+    
+    // Converta a diferença em dias
+    const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
+    
+    // Verifique se a diferença entre as datas é maior ou igual a um dia
+    return differenceInDays >= 1;
+  }
+  
   async function handleSubmit(e) {
 
     e.preventDefault();
+  
+    // Crie um objeto Date com a data e hora selecionadas
+    const selectedDate = new Date(horario);
+  
+    // Verifique se a data selecionada é válida
+    if (!isDateValid(selectedDate)) {
+      alert("A data da consulta deve ser maior que a data de hoje.");
+      return;
+    }
 
     const data = {
       paciente: {
